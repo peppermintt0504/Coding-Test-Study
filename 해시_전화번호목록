@@ -1,0 +1,14 @@
+def solution(phone_book):
+
+    phone_book.sort()
+    c1 = 0
+    c2 = 0
+    
+    for PB1 in phone_book:
+        c1 = c1 + 1
+        for PB2 in phone_book:
+            c2 = c2 + 1
+            if c1 == c2 : break           
+            if PB1[:len(PB2)] == PB2 : return False
+        c2 = 0
+    return True
