@@ -1,0 +1,22 @@
+def Add(Inp1, Inp2):
+    result=[]
+    for i,j in zip(Inp1,Inp2) : result.append(i+j)
+    return result
+
+def solution(progresses, speeds):
+    answer = []
+    n = 0
+    T = 0
+    while n < len(progresses): 
+
+        print(progresses)
+        progresses = Add(progresses,speeds)
+
+        if progresses[n] >= 100:
+            for pro in progresses[n:]:
+                if pro >= 100 : T += 1
+                else : break
+            answer.append(T)
+            n += T
+            T = 0
+    return answer
