@@ -1,0 +1,28 @@
+def TG(input):
+    for inp in range(len(input)):
+        input[inp] += 1
+    return input
+
+def solution(bridge_length, weight, truck_weights):
+    
+    gonig_Time = []
+    current = 0
+    n = 0
+    Pass =0
+    count = 0
+    while Pass < len(truck_weights) :
+
+        if n > 0 :
+            if gonig_Time[Pass] == bridge_length :
+                current -= truck_weights[Pass]
+                Pass += 1
+
+        if n < len(truck_weights) :
+            if (current + truck_weights[n] <= weight):
+                current += truck_weights[n]
+                gonig_Time.append(0)
+                n += 1
+
+        TG(gonig_Time)
+        count += 1
+    return count
