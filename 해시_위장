@@ -1,0 +1,17 @@
+def solution(clothes):
+
+    key = {}
+    for cl1 in clothes:
+        if cl1[1] not in key.keys():
+            key[cl1[1]] = [cl1[0]]
+        else:
+            key[cl1[1]].append(cl1[0])
+            
+    answer = 1
+    
+    for k in key.keys():
+        answer *= len(key[k])+1
+
+        
+    
+    return answer - 1
