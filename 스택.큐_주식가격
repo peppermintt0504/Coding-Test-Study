@@ -1,0 +1,12 @@
+def solution(prices):
+    answer = []
+    
+    for i in range(len(prices)):                   
+        T = 0
+        for li in prices[i+1:]:
+            if prices[i] <= li : T += 1
+            else :
+                T += 1
+                break             
+        answer.append(T)
+    return answer
