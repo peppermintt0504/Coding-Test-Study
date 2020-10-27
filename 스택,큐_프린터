@@ -1,0 +1,15 @@
+def solution(priorities, location):
+    answer = []
+    a = 0
+    n = 0
+    for i in range(len(priorities)): answer.append(0)
+
+    while n <len(priorities) :
+        if priorities[a] == max(priorities) :
+            answer[a] = n
+            priorities[a] = 0
+            n += 1
+
+        if a <len(priorities) - 1 : a += 1
+        else : a = 0
+    return answer[location] +1
