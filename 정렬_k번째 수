@@ -1,0 +1,14 @@
+def newarray(array, i, j, k):
+    new = array
+    new = new[i-1:j]    
+    new.sort()
+    return new[k-1]
+
+
+def solution(array, commands):
+    answer = []
+    
+    for C in  commands :
+        answer.append(newarray(array,C[0],C[1],C[2]))
+        
+    return answer
