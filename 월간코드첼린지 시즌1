@@ -1,0 +1,19 @@
+def Twosum(numbers) :
+    result = []
+
+    for i in range(len(numbers)) :
+        for j in range(len(numbers)) :
+            if i==j : break
+            else :
+                if (numbers[i]+numbers[j]) in result : 0
+                else: result.append(numbers[i]+numbers[j])
+    result.sort()
+    return result
+  
+
+def solution(numbers) :
+    print(numbers)
+    answer = Twosum(numbers)
+    print(answer)
+    
+    return answer
