@@ -1,0 +1,26 @@
+def math_Fxxk(answers) :
+    MF1 = [1,2,3,4,5]
+    MF2 = [2,1,2,3,2,4,2,5]
+    MF3 = [3,3,1,1,2,2,4,4,5,5]
+
+    C_MF1 = 0
+    C_MF2 = 0
+    C_MF3 = 0
+
+    for ans in range(len(answers)) :
+        if MF1[ans%5] == answers[ans] : C_MF1 += 1
+        if MF2[ans%8] == answers[ans] : C_MF2 += 1
+        if MF3[ans%10] == answers[ans] : C_MF3 += 1
+
+
+    answer = []
+
+
+    if C_MF1 == max(C_MF1,C_MF2,C_MF3) : answer.append(1)
+    if C_MF2 == max(C_MF1,C_MF2,C_MF3) : answer.append(2)
+    if C_MF3 == max(C_MF1,C_MF2,C_MF3) : answer.append(3)
+    return answer
+
+def solution(answers):
+    answer = math_Fxxk(answers)
+    return answer
