@@ -1,0 +1,38 @@
+from itertools import permutations
+
+def solution(numbers):
+    answer = 0
+    divi = []
+    for i in range(len(numbers)) :
+        divi.append(int(numbers[i : i + 1]))
+    temp=[]
+    for j in range(len(divi)):
+        temp.extend([list(i) for i in permutations(divi,j+1)])
+    
+    
+    
+    a = []
+    for i in range(len(temp)) :
+        b = 0  
+        for j in range(len(temp[i])) :
+                b = 10*b + temp[i][j]
+        if a.count(b) == 0 :
+            a.append(b)
+
+    print(a)
+    
+    for i in a :
+        is_prime = True
+        
+        for j in range(2,int(i/2)+1) :
+            if i % j == 0 :
+                is_prime = False
+        
+        if i == 0 : is_prime = False
+        if i == 1 : is_prime = False
+        
+        if is_prime == True :
+            print(i)
+            answer += 1
+        
+    return answer

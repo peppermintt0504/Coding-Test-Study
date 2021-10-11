@@ -1,0 +1,23 @@
+def solution(name):
+    answer = 0
+    divi = []
+    for x in range(len(name)) : divi.append(name[x : x + 1])
+    for d in divi : 
+        up = (ord(d) - 65) - (ord('A') - 65)
+        down = (ord('Z') - 65) - (ord(d) - 65) + 1
+        answer += min(up,down)
+    answer += (len(name)-1)
+    if divi[1] == 'A' : 
+        answer -= 1
+        for d in range(2 ,len(name)) :
+            if divi[d] == 'A' :
+                answer -= 1
+            else : break
+    elif divi[-1] == 'A' : 
+        answer -= 1
+        for d in range(len(name) - 1, 0 , -1 ) :
+            if divi[d] == 'A' :
+                answer -= 1
+            else : break
+    
+    return answer
