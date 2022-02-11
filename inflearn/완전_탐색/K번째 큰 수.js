@@ -4,22 +4,17 @@ function solution(N,K,list) {
     let sum_list = [];
     
     for(let i = 0; i < N; i++){
-
         for(let j = i; j < N; j++){
-            if(j === i){
+            if(j === i)
                 continue;
-            }
-
             for(let r = j; r < N; r++){
-                if(r === i || r === j){
+                if(r === i || r === j)
                     continue;
-                }
                 sum_list.push(list[i] + list[j] + list[r]);
             }
         }
     }
     return sum_list.sort((a,b) => -a+b)[2];
-
 }
 
 const N = 10;
