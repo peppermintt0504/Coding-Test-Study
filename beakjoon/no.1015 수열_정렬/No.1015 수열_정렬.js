@@ -1,8 +1,18 @@
-// const input = require("fs").readFileSync("/dev/stdin").toString().trim().split(/\s/);
-const input = ["8","4 1 6 1 3 6 1 4"];
-const N = input[0];
-const A = input[1].split(" ").map(v=> parseInt(v));
+const fs = require('fs');
+const stdin = (process.platform === 'linux'
+    ? fs.readFileSync('/dev/stdin').toString()
+    :
+`8
+4 1 6 1 3 6 1 4`
+).split('\n');
 
+const input = (() => {
+    let line = 0;
+    return () => stdin[line++];
+})();
+
+let N = input();
+let A = input().split(' ').map(v=> +v);
 let answer = Array.from({ length: N });
 let count = 0;
 
