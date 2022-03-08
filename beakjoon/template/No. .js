@@ -6,3 +6,10 @@ const input = (() => {
     let line = 0;
     return () => stdin[line++];})();
 
+
+    
+function solution(){
+
+}
+
+console.log(solution);
