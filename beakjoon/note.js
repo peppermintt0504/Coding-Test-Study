@@ -10,63 +10,24 @@ const input = (() => {
     let line = 0;
     return () => stdin[line++];})();
 
+    function combination(arr, selectNum) {
+        const result = [];
+        if (selectNum === 1) return arr.map((v) => [v]);
 
+        arr.forEach((v, idx, arr) => {
+        const fixed = v;
+        const restArr = arr.slice(idx + 1);
+        const combinationArr = combination(restArr, selectNum - 1);
+        const combineFix = combinationArr.map((v) => [fixed, ...v]);
+        console.log(fixed,restArr,combinationArr,combineFix);
+        result.push(...combineFix);
+        });
+
+        return result;
+    }
     
 function solution(){
-    let [people, party] = input().split(' ').map(v=>+v);
-    let truth = input().split(' ').map(v=>+v);
-    if(truth.shift()===0){
-        console.log(party);
-        return;
-    }
-    let count = party;
-
-    let record = [];
-
-
-    while(party){
-        party -= 1;
-
-        let participant = input().split(' ').map(v=>+v);
-        participant.shift();
-        record.push(participant);
-        for(a of participant){
-            if(truth.includes(a)){
-                for(t of participant){
-                    if(truth.includes(t))
-                        continue;
-                    truth.push(t);
-                }
-                break;
-            }
-        }
-        
-    }
-    
-
-    while(1){
-        result = count;
-        let compare = truth.length;
-
-        for(i of record){
-            for(a of i){
-                if(truth.includes(a)){
-                    result -= 1;
-                    for(t of i){
-                        if(truth.includes(t))
-                            continue;
-                        truth.push(t);
-                    }
-                    break;
-                }
-            }
-        }
-        
-        if(compare === truth.length){
-            break;
-        }
-    }
-    console.log(result);
+    combination([1,6,3,8,3,2],3)
 }
 
 solution();
