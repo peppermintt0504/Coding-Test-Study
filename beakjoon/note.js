@@ -1,8 +1,13 @@
 const fs = require('fs');
 const stdin = (process.platform === 'linux'? fs.readFileSync('/dev/stdin').toString() :
-`6
-1 2 3 4 5 6
-2 1 1 1`).split('\n');
+`7 7
+1011111
+1110001
+1000001
+1000001
+1000001
+1000001
+1111111`).split('\n');
 
 const input = (() => {
     let line = 0;
@@ -11,46 +16,63 @@ const input = (() => {
 
 
 function solution(){
-    let max = Number.MIN_VALUE;
-    let min = Number.MAX_VALUE;
-    const results = [];
-    let N = Number(input());
-    let numbers = input().split(' ').map((v)=>+v);
-    let operatorData = input().split(' ').map((v)=>+v);
+    let answer = Number.MAX_VALUE;
+    let data = [];
+    let [N,M] = input().split(' ').map((v)=>+v);
+    let pos = [0,0];
+    let count = 0;
+    for(let i = 0; i < N; i++){
+        data.push(input().split('').map((v)=>+v));
+    }
+    // console.table(data);
 
-
-    
-
-    const DFS = (value,count) => {
-        if(count === N) {
-            results.push(value);
+    const DFS = (pos,count) =>{
+        if(pos[0]=== N - 1 && pos[1] === M -1){
+            answer = answer > count + 1 ? count+1 : answer;
             return
         }
-        for(let i = 0; i < 4; i++){
-            if(operatorData[i] === 0) continue;
+        const queue = [];
+        // console.log(pos);
+        // console.table(data);
 
-            operatorData[i] -= 1;
-            switch(i){
-                case(0):
-                    DFS(value + numbers[count],count+1);
-                    break;
-                case(1):
-                    DFS(value - numbers[count],count+1);
-                    break;
-                case(2):
-                    DFS(value * numbers[count],count+1);
-                    break;
-                case(3):
-                    DFS(parseInt(value / numbers[count]),count+1);
-                    break;
-            }   
-            operatorData[i] += 1;
+        if(pos[0] < N - 1){
+            if(data[pos[0]+1][pos[1]]===1){
+                data[pos[0]][pos[1]] = 2;
+                // DFS([pos[0]+1,pos[1]],count + 1);
+                data[pos[0]][pos[1]] = 1;
+                queue.push([pos[0]+1,pos[1]],0)
+            }
         }
-    }
-    DFS(numbers[0],1);
-    console.log(Math.max(...results)===-0?0:Math.max(...results));
-    console.log(Math.min(...results)===-0?0:Math.min(...results));
+        if(pos[1] < M - 1){
+            if(data[pos[0]][pos[1]+1]===1){
+                data[pos[0]][pos[1]] = 2;
+                // DFS([pos[0],pos[1]+1],count + 1);
+                data[pos[0]][pos[1]] = 1;
+                queue.push([pos[0],pos[1]+1],1)
+            }
+        }
+        if(pos[0] > 0){
+            if(data[pos[0]-1][pos[1]]===1){
+                data[pos[0]][pos[1]] = 2;
+                // DFS([pos[0]-1,pos[1]],count + 1);
+                data[pos[0]][pos[1]] = 1;
+                queue.push([pos[0]-1,pos[1]],2)
+            }
+        }
+        if(pos[1] > 0){
+            if(data[pos[0]][pos[1]-1]===1){
+                data[pos[0]][pos[1]] = 2;
+                // DFS([pos[0],pos[1]-1],count + 1);
+                data[pos[0]][pos[1]] = 1;
+                queue.push([pos[0],pos[1]-1],3)
+            }
+        }
 
+
+    }
+
+    DFS(pos,0);
+    console.log(answer);
 }
 
 solution();
