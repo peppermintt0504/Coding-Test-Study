@@ -31,44 +31,36 @@ function solution(){
             answer = answer > count + 1 ? count+1 : answer;
             return
         }
-        const queue = [];
         // console.log(pos);
         // console.table(data);
-
         if(pos[0] < N - 1){
             if(data[pos[0]+1][pos[1]]===1){
                 data[pos[0]][pos[1]] = 2;
-                // DFS([pos[0]+1,pos[1]],count + 1);
+                DFS([pos[0]+1,pos[1]],count + 1);
                 data[pos[0]][pos[1]] = 1;
-                queue.push([pos[0]+1,pos[1]],0)
             }
         }
         if(pos[1] < M - 1){
             if(data[pos[0]][pos[1]+1]===1){
                 data[pos[0]][pos[1]] = 2;
-                // DFS([pos[0],pos[1]+1],count + 1);
+                DFS([pos[0],pos[1]+1],count + 1);
                 data[pos[0]][pos[1]] = 1;
-                queue.push([pos[0],pos[1]+1],1)
             }
         }
         if(pos[0] > 0){
             if(data[pos[0]-1][pos[1]]===1){
                 data[pos[0]][pos[1]] = 2;
-                // DFS([pos[0]-1,pos[1]],count + 1);
+                DFS([pos[0]-1,pos[1]],count + 1);
                 data[pos[0]][pos[1]] = 1;
-                queue.push([pos[0]-1,pos[1]],2)
             }
         }
         if(pos[1] > 0){
             if(data[pos[0]][pos[1]-1]===1){
                 data[pos[0]][pos[1]] = 2;
-                // DFS([pos[0],pos[1]-1],count + 1);
+                DFS([pos[0],pos[1]-1],count + 1);
                 data[pos[0]][pos[1]] = 1;
-                queue.push([pos[0],pos[1]-1],3)
             }
         }
-
-
     }
 
     DFS(pos,0);
@@ -76,4 +68,3 @@ function solution(){
 }
 
 solution();
-
