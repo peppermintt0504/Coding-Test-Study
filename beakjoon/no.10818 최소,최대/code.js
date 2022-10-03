@@ -1,7 +1,7 @@
 const fs = require('fs');
 const stdin = (process.platform === 'linux'? fs.readFileSync('/dev/stdin').toString() :
-`25
-7000000000000000000000000`).split('\n');
+`5
+20 10 35 30 7`).split('\n');
 
 const input = (() => {
     let line = 0;
@@ -11,12 +11,8 @@ const input = (() => {
     
 function solution(){
     input();
-    const numbers = input().split('').map(Number);
-    let answer = 0;
-    for( n of numbers){
-        answer += n;
-    }
-    console.log(answer)
+    const numbers = input().split(" ").map(Number);
+    console.log(Math.min(...numbers),Math.max(...numbers))
 }
 
 solution();
