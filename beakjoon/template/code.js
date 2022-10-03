@@ -1,6 +1,6 @@
 const fs = require('fs');
 const stdin = (process.platform === 'linux'? fs.readFileSync('/dev/stdin').toString() :
-``).split('\n');
+`1 2`).split('\n');
 
 const input = (() => {
     let line = 0;
@@ -9,7 +9,7 @@ const input = (() => {
 
     
 function solution(){
-
+    console.log(input());
 }
 
 solution();
