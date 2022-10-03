@@ -17,7 +17,6 @@ function solution(){
 
     console.log(arr.join(" "));
 
-
 }
 
 solution();
