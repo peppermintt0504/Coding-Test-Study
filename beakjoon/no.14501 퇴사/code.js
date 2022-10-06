@@ -17,6 +17,7 @@ const input = (() => {
     return () => stdin[line++];})();
 
 
+    
 const searchData = (date, schedule, pay)=>{
     const arrayPay = []
     if(date > schedule.length-1){

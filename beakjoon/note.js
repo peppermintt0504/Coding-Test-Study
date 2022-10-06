@@ -30,6 +30,7 @@ function solution(){
             }
         }
         console.log(answer);
+        console.log(answer);
     }
 }
 
