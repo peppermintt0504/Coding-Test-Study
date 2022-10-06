@@ -32,11 +32,12 @@ export const Delete = (url,headers,body)=>{
     return data;
 }
 
-export const Post = (url,headers,body)=>{
+/** headers와 body를 object형식으로 넣으시오*/
+export const Post = (url,path,headers,body)=>{
     let data =null;
-
-    fetch(url, {
-    method: "DELETE",
+    let pathUrl = url + path;
+    fetch(pathUrl, {
+    method: "POST",
     headers: {
         "Content-Type": "application/json",
         ...headers
