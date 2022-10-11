@@ -1,11 +1,6 @@
 const fs = require('fs');
 const stdin = (process.platform === 'linux'? fs.readFileSync('/dev/stdin').toString() :
-`5
-5
-4
-3
-2
-1`).split('\n');
+`6`).split('\n');
 
 const input = (() => {
     let line = 0;
@@ -14,12 +9,16 @@ const input = (() => {
 
 function solution() {
     const N = Number(input());
-    let arr = [];
-    for(let i = 0; i < N;i++){
-        arr.push(Number(input()));
+    if(N === 1){
+        console.log(1);
+        return;
     }
-    arr = arr.sort((a,b)=>a-b)
-    console.log(arr.join('\n'));
+    let a = 0;
+
+    while(Math.pow(2,a)<N){
+        a++;
+    }
+    console.log((N-Math.pow(2,a-1))*2);
 }
 
 solution();
