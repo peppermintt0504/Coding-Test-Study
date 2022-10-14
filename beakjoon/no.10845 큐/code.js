@@ -1,19 +1,19 @@
 const fs = require('fs');
 const stdin = (process.platform === 'linux'? fs.readFileSync('/dev/stdin').toString() :
 `15
-push_back 1
-push_front 2
+push 1
+push 2
 front
 back
 size
 empty
-pop_front
-pop_back
-pop_front
+pop
+pop
+pop
 size
 empty
-pop_back
-push_front 3
+pop
+push 3
 empty
 front`).split('\n');
 
@@ -29,26 +29,15 @@ function solution() {
     for(let i = 0;  i < N; i++){
         const commend = input().split(" ");
         switch(commend[0]){
-            case 'push_back' : 
+            case 'push' : 
                 store.push(commend[1]);
                 break;
-            case 'push_front' : 
-                store.unshift(commend[1]);
-                break;
-            case 'pop_front' :
+            case 'pop' :
                 if(store.length === 0){
                     answer += '-1\n';
                     break;
                 }else{
                     answer += store.shift() + "\n";
-                    break;
-                }
-            case 'pop_back' :
-                if(store.length === 0){
-                    answer += '-1\n';
-                    break;
-                }else{
-                    answer += store.pop() + "\n";
                     break;
                 }
             case 'size':
