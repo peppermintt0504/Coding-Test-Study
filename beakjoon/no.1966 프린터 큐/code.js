@@ -1,11 +1,12 @@
 const fs = require('fs');
 const stdin = (process.platform === 'linux'? fs.readFileSync('/dev/stdin').toString() :
-`5
-1
-3
-8
--2
-2`).split('\n');
+`3
+1 0
+5
+4 2
+1 2 3 4
+6 0
+1 1 9 1 1 1`).split('\n');
 
 const input = (() => {
     let line = 0;
@@ -14,7 +15,7 @@ const input = (() => {
 
 function solution() {
     const N = Number(input());
-    let arr = [];
+    let answer = '';
     for(let i = 0; i < N; i++){
         const [n,t] = input().split(" ").map(Number);
         const docs = input().split(' ').map((v,i)=>[+v,+i]);
