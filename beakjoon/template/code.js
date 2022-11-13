@@ -1,6 +1,6 @@
 const fs = require('fs');
 const stdin = (process.platform === 'linux'? fs.readFileSync('/dev/stdin').toString() :
-`5 17`).split('\n');
+`4`).split('\n');
 
 const input = (() => {
     let line = 0;
@@ -9,25 +9,42 @@ const input = (() => {
 
 
 function solution(){
-    const [N, K] = input().split(" ").map(Number);
-    const visit = Array.from({ length: 100100 }, () => 0);
+    const target = Number(input());
+    let visited = Array.from({length : 2000}, ()=>Array(1000).fill(0));
+    let queue = [[1,0,0]];
+    visited[1][0] = 1;
 
-    function bfs(N) {
-        const queue = [];
-        queue.push([N, 0]);
-        visit[N] = 1;
-        while (queue.length) {
-        const [cur, time] = queue.shift();
-        if (cur === K) return time;
-        for (next of [cur - 1, cur + 1, cur * 2]) {
-            if (!visit[next] && next >= 0 && next <= 100000) {
-            visit[next] = 1;
-            queue.push([next, time + 1]);
-            }
-        }
+    const actionCase = {
+        copy (count ,x){
+            return [count ,count]
+        },
+        paste (count ,x){
+            return [count + x, x]
+        },
+        deleteOne (count,x){
+            return [count-1,x]
         }
     }
-    console.log(bfs(N));
+
+    while(queue.length){
+        const [count,clip,time] = queue.shift();
+        // console.log(count,':::');
+        if(count === target){
+            // console.log(count,clip,time);
+            console.log(time);
+            break;
+        }
+        for( action of ['copy','paste', 'deleteOne']){
+            const NextPos = actionCase[action](count,clip);
+            if( NextPos[0] > 0 && NextPos[0] < 2000 && !visited[NextPos[0]][NextPos[1]]){
+                visited[NextPos[0]][NextPos[1]] = 1;
+                queue.push([...NextPos,time+1])
+                // console.log(action,[...NextPos,time+1]);
+            }
+
+        }
+    }
+
 
 }
 
