@@ -1,51 +1,55 @@
 const fs = require('fs');
 const stdin = (process.platform === 'linux'? fs.readFileSync('/dev/stdin').toString() :
-`4`).split('\n');
+`4 2
+0001
+1000`).split('\n');
 
 const input = (() => {
     let line = 0;
     return () => stdin[line++];
 })();
 
+const [tx,ty] = input().split(' ').map(Number);
+let visited = Array.from({length : ty},()=>Array(tx).fill(0));
+let maze = Array.from({length:ty},()=>input().split('').map(Number));
 
-function solution(){
-    const target = Number(input());
-    let visited = Array.from({length : 2000}, ()=>Array(1000).fill(0));
-    let queue = [[1,0,0]];
-    visited[1][0] = 1;
+const queue = [[0,0,0]];
+visited[0][0] = 1;
 
-    const actionCase = {
-        copy (count ,x){
-            return [count ,count]
-        },
-        paste (count ,x){
-            return [count + x, x]
-        },
-        deleteOne (count,x){
-            return [count-1,x]
-        }
+const move = {
+    up(x,y){
+        return [x,y-1];
+    },
+    down(x,y){
+        return [x,y+1];
+    },
+    right(x,y){
+        return [x+1,y];
+    },
+    left(x,y){
+        return [x-1,y];
     }
-
-    while(queue.length){
-        const [count,clip,time] = queue.shift();
-        // console.log(count,':::');
-        if(count === target){
-            // console.log(count,clip,time);
-            console.log(time);
-            break;
-        }
-        for( action of ['copy','paste', 'deleteOne']){
-            const NextPos = actionCase[action](count,clip);
-            if( NextPos[0] > 0 && NextPos[0] < 2000 && !visited[NextPos[0]][NextPos[1]]){
-                visited[NextPos[0]][NextPos[1]] = 1;
-                queue.push([...NextPos,time+1])
-                // console.log(action,[...NextPos,time+1]);
-            }
-
-        }
-    }
-
-
 }
 
-solution(); 
+while(queue.length){
+    const [x,y,time] = queue.shift();
+    // console.log(x,y,time);
+    if(x === tx-1 && y === ty-1){
+        // console.log('>>>',x,y,time);
+        console.log(time);
+        break;
+    }
+
+    for( action of ['up','down','right','left']){
+        const [nx,ny] = move[action](x,y);
+        if(ny < 0 || ny >= ty || nx < 0 || nx >= tx) continue;
+        if(visited[ny][nx]) continue;
+        if(maze[ny][nx]){
+            queue.push([nx,ny,time+1]);
+            visited[ny][nx] = 1;
+        }else{
+            queue.unshift([nx,ny,time]);
+            visited[ny][nx] = 1;
+        }
+    }
+}
