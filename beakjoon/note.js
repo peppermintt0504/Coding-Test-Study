@@ -1,34 +1,34 @@
 const fs = require('fs');
 const stdin = (process.platform === 'linux'? fs.readFileSync('/dev/stdin').toString() :
-`4 7
-20 15 10 17`).split('\n');
+`8
+99 193
+46 155
+46 155
+46 155
+46 155
+46 155
+46 155
+46 155
+46 155
+46 155`).split('\n');
 
 const input = (() => {
     let line = 0;
     return () => stdin[line++];
 })();
 
-const [tree, need] = input().split(' ').map(Number);
-const trees = input().split(' ').map(Number);
-let highist = Math.max(...trees);
-let shortist = 0; 
-let mid = 0;
-let answer = 0;
+const n = Number(input());
+let answer = Array(n).fill(0);
+let people = [];
 
-while(shortist <= highist){
-    let treelength = 0;
-    mid = Math.floor((highist + shortist)/2);
-    console.log(highist, shortist, mid);
-    trees.forEach((v,i)=>{
-        v - mid > 0 && (treelength += v - mid);
+for(let i = 0; i < n; i++)  people.push(input().split(' ').map(Number).concat(i))
 
-    })
-    console.log(treelength)
-    if(treelength >= need){
-        mid > answer && (answer = mid);
-        shortist = mid + 1;
-    }else{
-        highist = mid - 1;
+for(let i = 0; i < n; i++){
+    let rank = 1;
+    for(let j = 0; j < n; j++){
+        if(i === j) continue;
+        if(people[i][0] < people[j][0] && people[i][1] < people[j][1])  rank++;
     }
+    answer[i] = rank
 }
-console.log(answer);
+console.log(answer.join(' ').trim());
