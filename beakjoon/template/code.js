@@ -1,34 +1,29 @@
 const fs = require('fs');
 const stdin = (process.platform === 'linux'? fs.readFileSync('/dev/stdin').toString() :
-`8
-99 193
-46 155
-46 155
-46 155
-46 155
-46 155
-46 155
-46 155
-46 155
-46 155`).split('\n');
+`5
+0 4
+1 2
+1 -1
+2 2
+3 3`).split('\n');
 
 const input = (() => {
     let line = 0;
     return () => stdin[line++];
 })();
 
+
 const n = Number(input());
-let answer = Array(n).fill(0);
-let people = [];
+let point = [];
+let answer = '';
+for(let i = 0; i < n; i++)  point.push(input().split(' ').map(Number));
 
-for(let i = 0; i < n; i++)  people.push(input().split(' ').map(Number).concat(i))
+point.sort((a,b)=>{
+    if(a[1] === b[1])   return a[0]-b[0]
+    else                return a[1]-b[1]
+})
 
-for(let i = 0; i < n; i++){
-    let rank = 1;
-    for(let j = 0; j < n; j++){
-        if(i === j) continue;
-        if(people[i][0] < people[j][0] && people[i][1] < people[j][1])  rank++;
-    }
-    answer[i] = rank;
-}
-console.log(answer.join(' ').trim());
+point.map((v)=>{
+    answer += v.join(' ') + '\n';
+})
+console.log(answer.trim());
