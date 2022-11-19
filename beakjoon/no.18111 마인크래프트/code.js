@@ -1,9 +1,9 @@
 const fs = require('fs');
 const stdin = (process.platform === 'linux'? fs.readFileSync('/dev/stdin').toString() :
-`3 4 1
-64 64 64 64
-64 64 64 64
-64 64 64 63`).split('\n');
+`3 4 99
+0 0 0 0
+0 0 0 0
+0 0 0 1`).split('\n');
 
 const input = (() => {
     let line = 0;
@@ -33,26 +33,25 @@ for(let i = 0; i < h; i++) {
 
 floor = highist;
 while(floor >= shortist){
-    [overBlock,shortBlack] = map.reduce((a,y)=>{
+    overBlock = map.reduce((a,y)=>{
         const yValue = y.reduce((b,x)=>{
-            const over = x - floor > 0 ? x - floor : 0;
-            const short = floor-x > 0 ? floor-x : 0;
-            
-            return [b[0] + over, b[1] + short]
-            
-        },[0,0])
-        return [a[0] + yValue[0],a[1] + yValue[1]];
-    },[0,0])
+            if(x - floor > 0)
+                return b + (x - floor);
+            else
+                return b
+        },0)
+        return a + yValue;
+    },0)
 
-    // shortBlack = map.reduce((a,y)=>{
-    //     const yValue = y.reduce((b,x)=>{
-    //         if(floor-x > 0)
-    //             return b + (floor-x);
-    //         else
-    //             return b
-    //     },0)
-    //     return a + yValue;
-    // },0)
+    shortBlack = map.reduce((a,y)=>{
+        const yValue = y.reduce((b,x)=>{
+            if(floor-x > 0)
+                return b + (floor-x);
+            else
+                return b
+        },0)
+        return a + yValue;
+    },0)
     if(inven + overBlock >=  shortBlack){
         const cost = overBlock*2 + shortBlack
         if(answer[0] > cost)   answer = [cost,floor];
