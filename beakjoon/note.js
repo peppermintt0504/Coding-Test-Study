@@ -1,9 +1,6 @@
 const fs = require('fs');
 const stdin = (process.platform === 'linux'? fs.readFileSync('/dev/stdin').toString() :
-`3 4 1
-64 64 64 64
-64 64 64 64
-64 64 64 63`).split('\n');
+`10 6 4`).split('\n');
 
 const input = (() => {
     let line = 0;
@@ -11,53 +8,32 @@ const input = (() => {
 })();
 
 
-let [h,w,inven] = input().split(' ').map(Number);
-let map = [];
-let highist = 0;
-let shortist = 256;
-let overBlock = 0;
-let shortBlack = 0;
-let floor = 0;
-let answer = [Number.MAX_VALUE,0];
-
-
-for(let i = 0; i < h; i++) {
-    const v = input().split(' ').map(Number)
-    const max = Math.max(...v);
-    const min = Math.min(...v);
-    if(max>highist)  highist = max;
-    if(min<shortist)  shortist = min;
-    map.push(v);
+let [N,y,x] = input().split(' ').map(Number);
+let answer = 0;
+const twoXtwoCase = {
+    '00' : 0,
+    '10' : 1,
+    '01' : 2,
+    '11' : 3
 }
 
+let xscale = 0;
+let yscale = 0;
 
-floor = highist;
-while(floor >= shortist){
-    [overBlock,shortBlack] = map.reduce((a,y)=>{
-        const yValue = y.reduce((b,x)=>{
-            const over = x - floor > 0 ? x - floor : 0;
-            const short = floor-x > 0 ? floor-x : 0;
-            
-            return [b[0] + over, b[1] + short]
-            
-        },[0,0])
-        return [a[0] + yValue[0],a[1] + yValue[1]];
-    },[0,0])
-
-    // shortBlack = map.reduce((a,y)=>{
-    //     const yValue = y.reduce((b,x)=>{
-    //         if(floor-x > 0)
-    //             return b + (floor-x);
-    //         else
-    //             return b
-    //     },0)
-    //     return a + yValue;
-    // },0)
-    if(inven + overBlock >=  shortBlack){
-        const cost = overBlock*2 + shortBlack
-        if(answer[0] > cost)   answer = [cost,floor];
+while(y >= 2 || x >= 2){
+    xscale = 0;
+    yscale = 0;
+    while(Math.pow(2,xscale + 1) <= x)   xscale++;
+    while(Math.pow(2,yscale + 1) <= y)   yscale++;
+    
+    if(yscale > 0){
+        answer += Math.pow(2,1+(2*yscale));
+        y -= Math.pow(2,yscale);
     }
-    floor--;
-}
+    if(xscale > 0){
+        answer += Math.pow(2,(2*xscale));
 
-console.log(answer.join(' '));
+        x -= Math.pow(2,xscale);
+    }
+}
+console.log(answer+ twoXtwoCase[[x,y].join('')]);
