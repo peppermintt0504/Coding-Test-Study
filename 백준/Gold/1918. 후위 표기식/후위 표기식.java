@@ -5,15 +5,15 @@ public class Main {
 	public static BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 	public static BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
 
-	public static long[] dp;
-	public static long c;
 	public static Character[] oper1 = {'+','-'};
 	public static Character[] oper2 = {'*','/'};
+	public static Character[] bracket = {'(',')'};
+	
 	public static void main(String[] args) throws IOException {
 		String str = br.readLine();
 		
 		
-		String[] bracket = {"(",")"};
+		
 		Stack<Character> stack = new Stack<>();
 		
 		
@@ -50,7 +50,7 @@ public class Main {
 	}
 	
 	static int priority(char temp) {
-		if(temp == '(') return 0;
+		if(Arrays.asList(bracket).contains(temp)) return 0;
 		else if(Arrays.asList(oper1).contains(temp)) return 1;
 		else return 2;
 	}
