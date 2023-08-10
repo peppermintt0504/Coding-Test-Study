@@ -11,22 +11,6 @@ public class Main {
 	public static int[] dy = {-1,0,1,0};
 
 	
-	
-	public static class Crystal{
-		int mass;
-		int value;
-		
-		public Crystal() {}
-		public Crystal(int mass, int value) {
-			this.mass = mass;
-			this.value = value;
-		}
-		@Override
-		public String toString() {
-			return "Crystal [mass=" + mass + ", value=" + value + "]";
-		}
-	}
-	
 	public static void main(String[] args) throws IOException{
 		st = new StringTokenizer(br.readLine());
 		
@@ -39,17 +23,11 @@ public class Main {
 		ArrayList<Long> leftSum = new ArrayList<>();
 		ArrayList<Long> rightSum = new ArrayList<>();
 		
-//		System.out.println(Arrays.toString(Arrays.copyOfRange(list, 0, N/2)));
-//		System.out.println(Arrays.toString(Arrays.copyOfRange(list, N/2,N)));
-		
 		getSeqSum(leftSum, Arrays.copyOfRange(list, 0, N/2), 0, 0);
 		getSeqSum(rightSum, Arrays.copyOfRange(list, N/2, N), 0, 0);
 		
 		leftSum.sort(null);
 		rightSum.sort(null);
-		
-//		System.out.println(leftSum.toString());
-//		System.out.println(rightSum.toString());
 		
 		int pl = 0;
 		int pr = rightSum.size()-1;
