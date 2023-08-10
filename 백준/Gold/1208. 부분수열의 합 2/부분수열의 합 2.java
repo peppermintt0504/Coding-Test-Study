@@ -59,37 +59,21 @@ public class Main {
 			long tempSum = leftSum.get(pl) + rightSum.get(pr);
 			if(tempSum == M) {
 				
-//				int lCount = 0;
-//				long lv = leftSum.get(pl);
-//				while(pl < leftSum.size() && leftSum.get(pl) == lv) {
-//					lCount++;
-//					pl++;
-//				}
-//				
-//				int RCount = 0;
-//				long rv = rightSum.get(pr);
-//				while(pr >= 0 && rightSum.get(pr) == rv) {
-//					RCount++;
-//					pr--;
-//				}
-//				answer += lCount * RCount;
-
-				
+				long lCount = 0;
 				long a = leftSum.get(pl);
-				long cnt1 = 0;
 				while (pl < leftSum.size() && leftSum.get(pl) == a) {
+					lCount++;
 					pl++;
-					cnt1++;
 				}
-
+				
+				long RCount = 0;
 				long b = rightSum.get(pr);
-				long cnt2 = 0;
-				while (pr >= 0 && rightSum.get(pr) == b) {
+				while(pr >= 0 && rightSum.get(pr) == b) {
+					RCount++;
 					pr--;
-					cnt2++;
 				}
+				answer += lCount * RCount;
 
-				answer += cnt1 * cnt2;
 
 			}else if(tempSum > M) {
 				pr--;
