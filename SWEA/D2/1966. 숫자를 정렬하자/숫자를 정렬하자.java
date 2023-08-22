@@ -1,49 +1,45 @@
-import java.util.*;
-import java.util.stream.*;
-import java.io.*;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.Arrays;
+import java.util.Scanner;
 
 public class Solution {
-	public static BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-	public static BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
-	public static StringTokenizer st;
-	public static StringBuilder sb = new StringBuilder();
-	public static int INF = 100_000_000;
-	public static int[] dx = {0,1,0,-1};
-	public static int[] dy = {-1,0,1,0};
+	public static void main(String[] args) throws FileNotFoundException {
 
-	
-	public static void main(String[] args) throws IOException{
-		int T = Integer.parseInt(br.readLine());
-//		int T = 10;
+		Scanner sc = new Scanner(System.in);
 		
-		for(int t = 1; t <= T; t++) {
-			sb = new StringBuilder();
-			st = new StringTokenizer(br.readLine());
+		int T = sc.nextInt(); // 테스트케이스 개수 
+		
+		for(int testCase = 1; testCase <= T; testCase++) {
+			int N = sc.nextInt(); // 주어질 정수의 개수
+			int[] arr = new int[N]; // N만큼 항목 갖고있는 배열 만들기
 			
-			int N = Integer.parseInt(st.nextToken());
-
-			PriorityQueue<Integer> pq = new PriorityQueue<>();
-			
-			st = new StringTokenizer(br.readLine());
 			for(int i = 0; i < N; i++) {
-				pq.add(Integer.parseInt(st.nextToken()));
+				arr[i] = sc.nextInt(); // 배열에 값 넣기
+			} 
+			
+			// 정렬해주자!
+			for(int i = 0; i < N - 1; i++) { //0 ~ N-2 까지 봐줄게
+				int minIdx = i; // 해당 인덱스를 일단 min이라 치고
+				for(int j = i + 1; j < N; j++) { // i~N-1까지 중에
+					if(arr[minIdx] > arr[j]) { // min에 해당하는 값보가 작으면 
+						minIdx = j; // 갱신
+					}
+				}
+				
+				// 원래 있던 값이랑 바꿔줌
+				int temp = arr[minIdx];
+				arr[minIdx] = arr[i];
+				arr[i] = temp;
 			}
 			
-			while(!pq.isEmpty()){
-				int cur = pq.poll();
-				sb.append(" " + cur);
+			System.out.print("#" + testCase + " ");
+			for(int i = 0; i < N; i++) {
+				System.out.print(arr[i] + " ");
 			}
-			
-			
-			
-			System.out.printf("#%d %s",t,sb.toString().trim());
-			if(t <T)System.out.println();
+			System.out.println();
+
 		}
 		
-	}
-	public static int getPwd(int num) {
-		while(true) {
-			
-		}
 	}
 }
