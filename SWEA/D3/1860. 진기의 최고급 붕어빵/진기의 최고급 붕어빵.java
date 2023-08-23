@@ -1,64 +1,83 @@
-import java.util.*;
-import java.util.stream.*;
-import java.io.*;
+import java.util.Arrays;
+import java.util.Scanner;
 
 public class Solution {
-	public static BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-	public static BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
-	public static StringTokenizer st;
-	public static StringBuilder sb = new StringBuilder();
-	public static int INF = 100_000_000;
-	public static int[] dx = {0,1,0,-1};
-	public static int[] dy = {-1,0,1,0};
+	public static void main(String[] args) {
 
-	
-	public static void main(String[] args) throws IOException{
-		int T = Integer.parseInt(br.readLine());
-//		int T = 10;
-		
-		for(int t = 1; t <= T; t++) {
-			sb = new StringBuilder();
-			st = new StringTokenizer(br.readLine());
-			
-			int N = Integer.parseInt(st.nextToken());
-			int M = Integer.parseInt(st.nextToken());
-			int K = Integer.parseInt(st.nextToken());
-			
-			PriorityQueue<Integer> pq = new PriorityQueue<>();
-			
-			st = new StringTokenizer(br.readLine());
-			for(int i = 0; i < N; i++) {
-				pq.add(Integer.parseInt(st.nextToken()));
+		Scanner sc = new Scanner(System.in);
+
+		int T = sc.nextInt();
+
+		for (int testCase = 1; testCase <= T; testCase++) {
+
+			int N = sc.nextInt(); // 손님 수 받아와
+			int M = sc.nextInt(); // 몇 초에
+			int K = sc.nextInt(); // 몇 개 만드는지
+
+			int[] customer = new int[N + 1]; // 손님 idx 1부터 받을거니까
+
+			// 손님 array에 넣어주기
+			for (int i = 1; i <= N; i++) {
+				customer[i] = sc.nextInt();
 			}
-			
-			int time = 0;
-			int count = 0;
-			boolean isPossible = true;
-			while(!pq.isEmpty()) {
-				int cur = pq.poll();
-				count++;
-				if(time < cur) {
-					time = cur;
+
+			// 손님 오름차순 정렬
+			for (int i = 1; i <= N - 1; i++) {
+				int minIdx = i;
+				for (int j = i + 1; j < N; j++) {
+					if (customer[minIdx] > customer[j]) {
+						minIdx = j;
+					}
+				}
+
+				int temp = customer[minIdx];
+				customer[minIdx] = customer[i];
+				customer[i] = temp;
+			}
+
+			// 시간마다 가지고 있는 붕어빵 개수
+			int[][] time = new int[N + 1][2];
+
+			for (int j = 1; j <= N; j++) {
+				time[j][0] = M * j; // j 분에
+				time[j][1] = K * j; // 가지고 있는 붕어빵 개수
+			}
+
+			int currentTime = 0; // 
+			int currentBoong = 0;
+			boolean possible = true;
+
+			while (currentTime <= customer[N]) {
+				for (int i = 1; i <= N; i++) {
+
+					if (currentTime == customer[i]) {
+						currentBoong--;
+					}
+
+					if (currentTime == time[i][0]) {
+						currentBoong += K;
+					}
+
+					if (currentBoong < 0) {
+						possible = false;
+						break;
+					}
+
 				}
 				
-				if( (int) Math.floor(time / M) * K >= count) {
-					
-				}else {
-					isPossible = false;
-					break;
-				}
+				currentTime++;
+
 			}
-			
-			
-			
-			System.out.printf("#%d %s",t,isPossible ? "Possible" :"Impossible");
-			if(t <T)System.out.println();
+
+			String ans = "Possible";
+			if (possible == false) {
+				ans = "Impossible";
+			}
+
+			System.out.println("#" + testCase + " " + ans);
+
 		}
-		
+
 	}
-	public static int getPwd(int num) {
-		while(true) {
-			
-		}
-	}
+
 }
