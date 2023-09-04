@@ -1,35 +1,74 @@
-import java.util.*;
-import java.io.*;
-
+import java.util.Arrays;
+import java.util.Scanner;
 
 public class Main {
-	public static BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-	public static BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
-	public static StringTokenizer st;
-	public static int INF = 100_000_000;
-	public static int[] dx = {0,1,0,-1};
-	public static int[] dy = {-1,0,1,0};
+	public static void main(String[] args) {
 
-	public static String[] str;
-	public static void main(String[] args) throws IOException{
-		String[] str = br.readLine().split("");
+		Scanner sc = new Scanner(System.in);
+		String str = sc.next();
 
-		int answer = 0;
+		String[] arr = str.split("");
+
+//		System.out.println(Arrays.toString(arr));
+
+		for (int i = 0; i < arr.length; i++) {
+
+			if (arr[i].equals("A") || arr[i].equals("B") || arr[i].equals("C")) {
+
+				arr[i] = "2";
+			}
+
+			else if (arr[i].equals("D") || arr[i].equals("E") || arr[i].equals("F")) {
+
+				arr[i] = "3";
+			}
+
+			else if (arr[i].equals("G") || arr[i].equals("H") || arr[i].equals("I")) {
+
+				arr[i] = "4";
+			}
+
+			else if (arr[i].equals("J") || arr[i].equals("K") || arr[i].equals("L")) {
+
+				arr[i] = "5";
+			}
+
+			else if (arr[i].equals("M") || arr[i].equals("N") || arr[i].equals("O")) {
+
+				arr[i] = "6";
+			}
+
+			else if (arr[i].equals("P") || arr[i].equals("Q") || arr[i].equals("R") || arr[i].equals("S")) {
+
+				arr[i] = "7";
+			}
+
+			else if (arr[i].equals("T") || arr[i].equals("U") || arr[i].equals("V")) {
+
+				arr[i] = "8";
+			}
+
+			else if (arr[i].equals("W") || arr[i].equals("X") || arr[i].equals("Y") || arr[i].equals("Z")) {
+
+				arr[i] = "9";
+			}
+			
+//			System.out.println(Arrays.toString(arr));
+
 		
-		for(String s : str) {
-			int c = s.charAt(0);
-			
-			if(c <= 67)answer+=3;
-			else if(c <= 70)answer+=4;
-			else if(c <= 73)answer+=5;
-			else if(c <= 76)answer+=6;
-			else if(c <= 79)answer+=7;
-			else if(c <= 83)answer+=8;
-			else if(c <= 86)answer+=9;
-			else answer+=10;
-			
 		}
-		System.out.println(answer);
+		
+		int[] intArr = Arrays.stream(arr).mapToInt(Integer::parseInt).toArray();
+		
+//		System.out.println(Arrays.toString(intArr));
+		
+		int sum = 0; 
+		
+		for(int i = 0 ; i<intArr.length; i++) {
+			
+			sum += intArr[i];
+		}
+		
+		System.out.println(sum+intArr.length);
 	}
-
 }
