@@ -1,0 +1,9 @@
+SELECT 
+PRODUCT_CODE,
+Sum (O.sales_amount) * P.price SALES
+from PRODUCT P,OFFLINE_SALE O
+
+where P.PRODUCT_ID = O.PRODUCT_ID
+
+group by O.PRODUCT_ID
+order by SALES DESC,PRODUCT_CODE
